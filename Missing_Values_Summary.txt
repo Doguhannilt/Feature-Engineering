@@ -1,0 +1,146 @@
+#Summary of Missing Values Tutorials #by Kish Naik
+
+
+Lifecycle of a Data Science Projects
+#1. Data Collection Statergy: from company side, 3rd party API's, Surveys #2. Feature Engineering: Handling missing values: 
+
+QUESTION: Why are there Missing values? My explanation for the question: 
+	- Data that we collect should has some errors and every dataset collect by a human and human should make mistakes.
+
+
+QUESTION: What are the different types of Missing Data?
+
+Missing Competely at Random, MCAR: A variable is missing completely at random (MCAR) if the probability of being missing is the same for all the observations.
+	 When data is MCAR, there is absolutely no relationship between the data missing and any other values, observer or missing.
+
+Missing Data Not at Random(MNAR) : Systematic missing Values There is absolutely some relationship between the data missing and any other values, observer or missing, within the dataset
+
+Missing at Random (MAR) : Suppose, you have a dataset about depression and there are two features: Sex and Salary, Sex feature is full but Salary feature has missing values because of mens hide their salaries so that's "MAR"
+									Example: Men : Hide their salary Woman : Hide their age
+
+
+ALL THE TECHNIQUES OF HANDLING MISSING VALUES
+
+	1.Mean/median replicament
+	2.Random Sample Imputation
+	3.Capturing NaN values with a new feature
+	4.End of Distribution Imputation
+	5.Arbitrary Imputation
+	6.Frequent categories Imputation
+
+
+Notes: 
+
+Mean/Median:
+
+QUESTION: When should we apply? 
+		Mean / Median imputation has the assumption that the data are missing completely at random (MCAR) We solve this by replacing the NaN with the most frequent occurance of the variables
+
+						ADVANTAGES AND DISADVANTAGES OF MEAN/MEDIAN IMPUTATION
+									ADVANTAGES:
+								Easy to implement(Robust to outliers)
+								Faster way to obtain the complete dataset
+
+									DISADVANTAGES:
+								Change or distortion (bozulma) in the original variance
+								Impacts correlation
+
+Random Sample Imputation:
+
+Aim: Random sample imputation is similar to mean/media but it's consists of taking random observation from the dataset and we use this observation to replace the NaN values
+							Note: Mean/Media uses for MCAR
+
+When should it be used? It assumes that the data are missing completely at random(MCAR)
+
+						ADVANTAGES AND DISADVANTAGES OF RANDOM SAMPLE IMPUTATION
+
+									ADVANTAGES:
+								Easy to implement
+								There is less distortion in the dataset
+
+									DISVANTAGES:
+								Every sitution randomness won't work
+
+
+
+Capturing NaN Values With A New Feature:
+
+Note: It works well if the data are not missing completely at random (MNAR)
+
+End Of Distrubtion Imputation:
+
+We are taking a sample of end of distrubition in the dataset and we are using the sample to fillna()
+
+
+Arbitrary Value Imputation:
+
+Note1: This technique was derived from kaggle competition
+Note2 : It consist of replacing NaN by an arbitrary value
+	#It should be more frequently present
+	#Arbitrary = Determined by chance, whim, or impulse, and not by necessity, reason, or principle.
+
+
+First of all:
+
+Categorical Data: A categorical variable (sometimes called a nominal variable) is one that has two or more categories, but there is no intrinsic(içsel) ordering to the categories.  
+	For example, a binary variable (such as yes/no question) is a categorical variable having two categories (yes or no) and there is no intrinsic ordering to the categories.  
+
+Ordinal Data: An ordinal variable is similar to a categorical variable.  The difference between the two is that there is a clear ordering of the categories.  
+	For example, suppose you have a variable, economic status, with three categories (low, medium and high). 
+	 In addition to being able to classify people into these three categories, you can order the categories as low, medium and high.
+
+Interval Data: An interval variable is similar to an ordinal variable, except that the intervals between the values of the numerical variable are equally spaced.  For example, suppose you have a variable such as annual income that is measured in dollars, and we have three people who make $10,000, $15,000 and $20,000. The second person makes $5,000 more than the first person and $5,000 less than the third person, 
+	and the size of these intervals is the same.  If there were two other people who make $90,000 and $95,000, the size of that interval between these two people is also the same ($5,000).
+			
+		Source: https://stats.oarc.ucla.edu/other/mult-pkg/whatstat/what-is-the-difference-between-categorical-ordinal-and-interval-variables/
+
+
+QUESTION: How to fill Categorical Missing Values?
+
+1. Frequent Category Imputation
+
+	Note: If you want to use Frequent Category Imputation, the feature has to include less NaN values
+
+		Example: 
+			Features with NaN Values:
+				BsmtQual        37
+				FireplaceQu    690
+				GarageType      81
+				SalePrice        0
+
+			We can use Replacing Function to use Frequent C.I
+			
+				def imputation_nan(df,variable):
+    					most_frequent_category = df[variable].value_counts().index[0] #The value_counts().index[0] gives us the highest value in the variable
+    					df[variable].fillna(most_frequent_category,inplace=True)
+
+						ADVANTAGES
+
+						Easy to implement
+						Faster way to implement
+
+						DISADVANTAGES
+						
+						Since we are using the more frequent labels, it may use them in an over represented way, if there are many NaN
+						It distorts the relation of the most frequent label
+
+
+
+
+2. Adding A Variable To Capture NaN
+
+N: Suppose if you have more frequent categories, we just replace NaN with a new category
+
+
+
+
+
+
+
+
+
+
+
+
+
+

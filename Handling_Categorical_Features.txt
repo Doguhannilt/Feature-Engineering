@@ -1,0 +1,47 @@
+Summary of Handling Categorical Features #By Krish Naik
+
+1.One Hot Encoding: One hot encoding is one method of converting data to prepare it for an algorithm and get a better prediction. 
+			With one-hot, we convert each categorical value into a new categorical column and assign a binary value of 1 or 0 to those columns. 
+			Each integer value is represented as a binary vector. All the values are zero, and the index is marked with a 1.
+
+	Note: You can use pd.get_dummies(DataFrame) so easily
+	
+QUESTION: But what if you have many categories? You can take the top ten categories to use One Hot Encoding
+	
+	Example:	
+		for i in df.columns:
+        			print(df[i].value_counts().sort_values(ascending = False).head(10))
+		
+		lst = df[variable].value_counts().sort_values(ascending = False).head(10).index #Take the index of the categories
+		lst = list(lst)
+		
+		import numpy as np
+		for categories in lst:
+   			 df[categories]=np.where(df['X1']==categories,1,0)
+
+
+What is Ordinal Data?
+
+	Grading system --- A,B,C,D,F
+		A-1 B-2 B-3 B-4 B-5
+	
+	"Ordinal data" is a kind of ranking
+	
+		Mon,Tues,Wed,Thur,Fri,Sat,Sun
+		Sun--1 Sat--2 ... Mond--7
+
+Note: If you want to handle Ordinal Data, you can use .map and dict functions. 
+
+1. Count or Frequency Encoding
+
+Let's suppose we have "Country" feature and it includes "Usa,India,Germany"
+
+	country_map = df['Country'].value_counts().to_dict()
+		value_counts = Return a Series containing counts of unique rows in the DataFrame.
+
+	df['Country'] =  df['Country'].map(country_map)
+
+2. Target-Guided Ordinal Encoding
+
+Source: https://www.kaggle.com/code/harshavarshney/target-guided-ordinal-encoding-and-mean-encoding/notebook
+Source: Go and check "Feature Engineering - Handling Categorical Features - Day 4
